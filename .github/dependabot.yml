@@ -4,8 +4,6 @@ updates:
   - package-ecosystem: "github-actions"
     directories:
       - "/"
-    commit-message:
-      prefix: "deps(github-actions)"
     schedule:
       interval: "daily"
       time: "01:00"
@@ -13,6 +11,22 @@ updates:
     target-branch: "main"
     groups:
       github-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+
+  - package-ecosystem: "uv"
+    directories:
+      - "/"
+    schedule:
+      interval: "daily"
+      time: "01:00"
+      timezone: "Europe/London"
+    target-branch: "main"
+    groups:
+      uv:
         patterns:
           - "*"
         update-types:
