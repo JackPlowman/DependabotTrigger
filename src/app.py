@@ -15,6 +15,11 @@ def get_pull_requests(repo_name:str) -> PaginatedList:
     repo = github_class.get_repo(repo_name)
 
     # Get all pull requests
-    pulls = repo.get_pulls(state='active')
+    pulls = repo.get_pulls(state='open')
+
+    print(f"Found {pulls.totalCount} open pull requests in {repo_name}.")
+    # Print the title and number of each pull request
+    for pull in pulls:
+        print(f"Pull request #{pull.number}: {pull.title}")
 
     return pulls
