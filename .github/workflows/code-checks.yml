@@ -92,6 +92,8 @@ jobs:
         with:
           pyproject-file: "pyproject.toml"
           enable-cache: true
+      - name: Install Python Dependencies
+        run: just install
       - name: Run zizmor 🌈
         run: uv run zizmor --format sarif . > results.sarif
         env:
