@@ -124,9 +124,13 @@ jobs:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
     permissions:
+      statuses: write
       security-events: write
+    strategy:
+      matrix:
+        language: [python, actions]
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
@@ -134,7 +138,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3.28.12
         with:
-          languages: actions
+          languages: ${{ matrix.language }}
           queries: security-and-quality
           config-file: .github/other-configurations/codeql-config.yml
       - name: Perform CodeQL Analysis
