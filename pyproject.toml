@@ -2,6 +2,11 @@
 name = "DependabotTrigger"
 dynamic = ["version"]
 requires-python = ">=3.13"
-dependencies = [
-    "pygithub==2.6.1",
-]
+dependencies = ["pygithub==2.6.1"]
+
+[project.optional-dependencies]
+dev = ["zizmor==1.5.2"]
+
+[tool.uv]
+required-version = "0.6.9"
+package = false
