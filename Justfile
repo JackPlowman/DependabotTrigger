@@ -2,7 +2,11 @@
 # Common commands
 # ------------------------------------------------------------------------------
 
-# Run script
+# Install all dependencies
+install:
+    uv sync --all-extras
+
+# Run DependabotTrigger
 run:
     uv run python -m src
 
