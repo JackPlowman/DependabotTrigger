@@ -2,7 +2,7 @@
 name = "DependabotTrigger"
 dynamic = ["version"]
 requires-python = ">=3.13"
-dependencies = ["pygithub==2.6.1"]
+dependencies = ["pygithub==2.6.1", "structlog==25.2.0"]
 
 [project.optional-dependencies]
 dev = ["zizmor==1.5.2"]
