@@ -1,4 +1,4 @@
-from github import Github, PaginatedList
+from github import Github, PaginatedList, Repository
 from structlog import get_logger, stdlib
 from os import getenv
 
@@ -16,6 +16,7 @@ def app() -> None:
 
     pulls = get_pull_requests(github_class, "JackPlowman/DependabotTrigger")
     close_group_pull_requests(pulls)
+    trigger_dependabot(github_class,github_class.get_repo("JackPlowman/DependabotTrigger"))
     github_class.close()
 
 def get_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
@@ -45,3 +46,16 @@ def close_group_pull_requests(pulls: PaginatedList) -> None:
 
     logger.info("close_group_pull_requests", count=count)
 
+
+def trigger_dependabot(github_class: Github, repo:Repository) -> None:
+    """Trigger Dependabot to run."""
+    try:
+        # Assuming the repository has Dependabot configuration
+        dependabot_url = f"https://api.github.com/repos/{repo.full_name}/dependabot/updates"
+        response = github_class._Github__requester.requestJsonAndCheck("POST", dependabot_url)
+        if response[0].status_code == 204:
+            print(f"Triggered Dependabot update job for {repo.full_name}")
+        else:
+            print(f"Failed to trigger Dependabot update job for {repo.full_name}")
+    except Exception as e:
+        print(f"Error triggering Dependabot update job for {repo.full_name}: {e}")
