@@ -1,16 +1,19 @@
 from github import Github, PaginatedList
-
+from os import getenv
 
 def app() -> None:
-    print("Hello from DependabotTrigger!")
-    pulls = get_pull_requests("JackPlowman/DependabotTrigger")
-    close_group_pull_requests(pulls)
-
-
-def get_pull_requests(repo_name: str) -> PaginatedList:
     # Authenticate to GitHub
-    github_class = Github()
+    auth_token = getenv("GITHUB_TOKEN")
+    if not auth_token:
+        raise ValueError("GITHUB_TOKEN environment variable not set.")
 
+    github_class = Github(auth_token)
+
+    pulls = get_pull_requests(github_class, "JackPlowman/DependabotTrigger")
+    close_group_pull_requests(pulls)
+    github_class.close()
+
+def get_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
     # Get the repository
     repo = github_class.get_repo(repo_name)
 
