@@ -124,7 +124,6 @@ jobs:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
     permissions:
-      statuses: write
       security-events: write
     strategy:
       matrix:
