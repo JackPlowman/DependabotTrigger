@@ -15,14 +15,21 @@ def app() -> None:
     github_class = Github(auth_token)
 
     pulls = get_pull_requests(github_class, "JackPlowman/DependabotTrigger")
-    close_group_pull_requests(pulls)
+    comment_on_pull_request(pulls)
+
     github_class.close()
 
 def get_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
+    """Fetches all open pull requests from the specified GitHub repository.
+
+    Args:
+        github_class (Github): An authenticated Github instance.
+        repo_name (str): The name of the repository in the format "owner/repo".
+    """
     # Get the repository
     repo = github_class.get_repo(repo_name)
 
-    # Get all pull requests
+    # Get all open pull requests
     pulls = repo.get_pulls(state="open")
     logger.info("get_pull_requests", repo=repo_name, count=pulls.totalCount)
 
@@ -32,16 +39,11 @@ def get_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
 
     return pulls
 
+def comment_on_pull_request(pulls: PaginatedList) -> None:
+    """Adds a comment to each pull request in the provided list, requesting a rebase.
 
-def close_group_pull_requests(pulls: PaginatedList) -> None:
-    # Close all pull requests in the group
-    count = 0
+    Args:
+        pulls (PaginatedList): A list of pull request objects to comment on.
+    """
     for pull in pulls:
-        if "group" not in pull.title:
-            continue
-        pull.edit(state="closed")
-        count += 1
-        logger.debug("close_pull_request", number=pull.number, title=pull.title)
-
-    logger.info("close_group_pull_requests", count=count)
-
+        pull.create_issue_comment("@dependabot rebase")
