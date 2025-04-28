@@ -22,3 +22,5 @@ pre-commit:
       run: just pinact-check
     Ruff Checks:
       run: just ruff-checks
+    UV Lock Checks:
+      run: just uv-lock-check
