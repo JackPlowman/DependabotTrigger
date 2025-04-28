@@ -4,6 +4,7 @@ from os import getenv
 
 logger: stdlib.BoundLogger = get_logger()
 
+
 def app() -> None:
     """Main application function."""
     # Authenticate to GitHub
@@ -19,6 +20,7 @@ def app() -> None:
     comment_on_pull_request(pulls)
     log_all_pull_requests(repo_name, pulls)
     github_class.close()
+
 
 def get_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
     """Fetches all open pull requests from the specified GitHub repository.
@@ -40,6 +42,7 @@ def get_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
 
     return pulls
 
+
 def comment_on_pull_request(pulls: PaginatedList) -> None:
     """Adds a comment to each pull request in the provided list, requesting a rebase.
 
@@ -49,13 +52,16 @@ def comment_on_pull_request(pulls: PaginatedList) -> None:
     for pull in pulls:
         pull.create_issue_comment("@dependabot rebase")
 
-def log_all_pull_requests( repo_name: str,
-        pulls: PaginatedList) -> None:
+
+def log_all_pull_requests(repo_name: str, pulls: PaginatedList) -> None:
     """Logs the title and number of each pull request in the provided list.
 
     Args:
         repo_name (str): The name of the repository in the format "owner/repo".
         pulls (PaginatedList): A list of pull request objects to log.
     """
-    logger.info(repo_name, pull_request_count=pulls.totalCount, pull_request_links=[pull.html_url for pull in pulls])
-
+    logger.info(
+        repo_name,
+        pull_request_count=pulls.totalCount,
+        pull_request_links=[pull.html_url for pull in pulls],
+    )
