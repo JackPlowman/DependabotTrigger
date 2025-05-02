@@ -1,0 +1,78 @@
+{
+  "version": "0.18.1",
+  "uuid": "d5d83c3a-117f-42e3-adaa-fc886be8a108",
+  "timestamp": "2025-05-02T19:13:25+00:00",
+  "root": "/github/workspace",
+  "repository": {
+    "owner": "JackPlowman",
+    "name": "DependabotTrigger",
+    "branch": "dependabot/github_actions/main/github-actions-aaae3d5b01"
+  },
+  "codebase": {
+    "totals": {
+      "Python": {
+        "files": 4,
+        "lines_of_code": 36,
+        "functions": 5,
+        "hard_to_maintain": 0,
+        "unmaintainable": 0
+      }
+    },
+    "tree": {
+      "./": {
+        "entries": [
+          "src/"
+        ],
+        "profile": [36, 0, 0, 0]
+      },
+      "src/": {
+        "entries": [
+          "__main__.py",
+          "app.py",
+          "custom_logging.py",
+          "__init__.py"
+        ],
+        "profile": [36, 0, 0, 0]
+      }
+    },
+    "files": {
+      "src/__main__.py": {
+        "checksum": "16cbe92efb4a0d6a24fc2d18cd53060d",
+        "language": "Python",
+        "loc": 0,
+        "profile": [0, 0, 0, 0],
+        "measurements": [
+        ]
+      },
+      "src/app.py": {
+        "checksum": "20d55423107e069cb058b552feec7b20",
+        "language": "Python",
+        "loc": 30,
+        "profile": [30, 0, 0, 0],
+        "measurements": [
+          {"unit_name": "app", "start": {"line": 8, "column": 1}, "end": {"line": 22, "column": 25}, "value": 11},
+          {"unit_name": "get_pull_requests", "start": {"line": 25, "column": 1}, "end": {"line": 43, "column": 17}, "value": 8},
+          {"unit_name": "comment_on_pull_request", "start": {"line": 46, "column": 1}, "end": {"line": 53, "column": 56}, "value": 4},
+          {"unit_name": "log_all_pull_requests", "start": {"line": 56, "column": 1}, "end": {"line": 67, "column": 6}, "value": 7}
+        ]
+      },
+      "src/custom_logging.py": {
+        "checksum": "16ee8ef1acac4587cb6cac1e7ce889fc",
+        "language": "Python",
+        "loc": 6,
+        "profile": [6, 0, 0, 0],
+        "measurements": [
+          {"unit_name": "set_up_custom_logging", "start": {"line": 9, "column": 1}, "end": {"line": 14, "column": 64}, "value": 6}
+        ]
+      },
+      "src/__init__.py": {
+        "checksum": "d41d8cd98f00b204e9800998ecf8427e",
+        "language": "Python",
+        "loc": 0,
+        "profile": [0, 0, 0, 0],
+        "measurements": [
+        ]
+      }
+    }
+  }
+}
