@@ -1,5 +1,7 @@
 # DependabotTrigger
 
+DependabotTrigger is a Python script that automates the process of triggering Dependabot version update jobs for GitHub repositories. It uses Playwright to interact with the GitHub web interface and trigger updates for all repositories for a give user.
+
 ## Table of Contents
 
 - [DependabotTrigger](#dependabottrigger)
