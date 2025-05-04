@@ -18,6 +18,7 @@ def app() -> None:
         github = setup_github()
         for repo in get_all_repos(github):
             close_group_pull_requests(github, repo.full_name)
+            trigger_dependabot(page, repo.full_name)
 
 
 def sign_into_github(page: Page) -> None:
@@ -93,3 +94,25 @@ def close_group_pull_requests(github_class: Github, repo_name: str) -> Paginated
         closed_pull_requests_count=len(prs_to_close),
     )
     return pulls
+
+
+def trigger_dependabot(page: Page, repository_name: str) -> None:
+    """Trigger Dependabot to scan the repository for updates.
+
+    Args:
+        page (Page): The Playwright page object.
+        repository_name (str): The name of the repository in the format "owner/repo".
+    """
+    page.goto(f"https://github.com/{repository_name}/network/updates")
+    dependabot_urls = [
+        f"https://github.com{link.get_attribute('href')}"
+        for link in page.query_selector_all("text=Recent update jobs")
+    ]
+    logger.info(
+        "Retrieved Dependabot URLs",
+        repository=repository_name,
+        dependabot_urls=dependabot_urls,
+    )
+    for url in dependabot_urls:
+        page.goto(url)
+        page.click("text=Check for updates")
