@@ -1,7 +1,7 @@
 {
   "version": "0.18.1",
-  "uuid": "398394e4-408b-4843-ad74-adcdabc054fe",
-  "timestamp": "2025-05-04T09:44:06+00:00",
+  "uuid": "18821c7c-85c3-413a-ae86-376deb08f9f0",
+  "timestamp": "2025-05-04T10:16:10+00:00",
   "root": "/github/workspace",
   "repository": {
     "owner": "JackPlowman",
@@ -12,8 +12,8 @@
     "totals": {
       "Python": {
         "files": 4,
-        "lines_of_code": 33,
-        "functions": 4,
+        "lines_of_code": 63,
+        "functions": 6,
         "hard_to_maintain": 0,
         "unmaintainable": 0
       }
@@ -23,7 +23,7 @@
         "entries": [
           "src/"
         ],
-        "profile": [33, 0, 0, 0]
+        "profile": [38, 25, 0, 0]
       },
       "src/": {
         "entries": [
@@ -32,7 +32,7 @@
           "custom_logging.py",
           "__init__.py"
         ],
-        "profile": [33, 0, 0, 0]
+        "profile": [38, 25, 0, 0]
       }
     },
     "files": {
@@ -45,14 +45,16 @@
         ]
       },
       "src/app.py": {
-        "checksum": "95d7d39bc4876869b6ef562361bb8352",
+        "checksum": "74d7cf9e1546353e71126947382bb234",
         "language": "Python",
-        "loc": 27,
-        "profile": [27, 0, 0, 0],
+        "loc": 57,
+        "profile": [32, 25, 0, 0],
         "measurements": [
-          {"unit_name": "app", "start": {"line": 11, "column": 1}, "end": {"line": 18, "column": 24}, "value": 8},
-          {"unit_name": "sign_into_github", "start": {"line": 21, "column": 1}, "end": {"line": 25, "column": 60}, "value": 4},
-          {"unit_name": "get_all_repos", "start": {"line": 28, "column": 1}, "end": {"line": 47, "column": 24}, "value": 15}
+          {"unit_name": "app", "start": {"line": 11, "column": 1}, "end": {"line": 20, "column": 62}, "value": 10},
+          {"unit_name": "sign_into_github", "start": {"line": 23, "column": 1}, "end": {"line": 27, "column": 60}, "value": 4},
+          {"unit_name": "setup_github", "start": {"line": 30, "column": 1}, "end": {"line": 40, "column": 18}, "value": 7},
+          {"unit_name": "get_all_repos", "start": {"line": 43, "column": 1}, "end": {"line": 58, "column": 24}, "value": 11},
+          {"unit_name": "close_group_pull_requests", "start": {"line": 61, "column": 1}, "end": {"line": 95, "column": 17}, "value": 25}
         ]
       },
       "src/custom_logging.py": {
