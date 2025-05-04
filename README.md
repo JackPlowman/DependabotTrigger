@@ -1,13 +1,56 @@
-# Repository Name
+# DependabotTrigger
 
 ## Table of Contents
 
-- [Repository Name](#repository-name)
+- [DependabotTrigger](#dependabottrigger)
   - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
   - [Contributing](#contributing)
+  - [License](#license)
 
-<!-- Add documentation -->
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/JackPlowman/DependabotTrigger.git
+cd DependabotTrigger
+```
+
+2. To use DependabotTrigger you need to have some prerequisites installed. Install the following tools:
+
+- [Just](https://just.systems/man/en/packages.html)
+- [uv](https://docs.astral.sh/uv/#installation)
+
+3. Install the python dependencies:
+
+```bash
+just install
+```
+
+4. Install playwright browsers:
+
+```bash
+just install-browsers
+```
+
+5. Export the following environment variables:
+
+```bash
+export GITHUB_TOKEN=<your_github_token>
+export GITHUB_USER=<your_github_user>
+```
+
+6. Run the script:
+
+```bash
+just run
+```
 
 ## Contributing
 
 We welcome contributions to the project. Please read the [Contributing Guidelines](docs/CONTRIBUTING.md) for more information.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
