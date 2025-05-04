@@ -25,7 +25,6 @@ def sign_into_github(page: Page) -> None:
     page.wait_for_url("https://github.com/", timeout=30000)
 
 
-
 def get_all_repos() -> PaginatedList[Repository]:
     """Retrieve the list of repositories to analyse.
 
