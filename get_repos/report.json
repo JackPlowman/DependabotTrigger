@@ -1,7 +1,7 @@
 {
   "version": "0.18.1",
-  "uuid": "1e89d023-fd6b-4c6f-bb19-53424797a1da",
-  "timestamp": "2025-05-04T09:41:21+00:00",
+  "uuid": "29f44228-44cb-494b-bc51-5184eecb8019",
+  "timestamp": "2025-05-04T09:42:19+00:00",
   "root": "/github/workspace",
   "repository": {
     "owner": "JackPlowman",
@@ -45,14 +45,14 @@
         ]
       },
       "src/app.py": {
-        "checksum": "40ca9940a4e526227860732832463f30",
+        "checksum": "95d7d39bc4876869b6ef562361bb8352",
         "language": "Python",
         "loc": 27,
         "profile": [27, 0, 0, 0],
         "measurements": [
           {"unit_name": "app", "start": {"line": 11, "column": 1}, "end": {"line": 18, "column": 24}, "value": 8},
           {"unit_name": "sign_into_github", "start": {"line": 21, "column": 1}, "end": {"line": 25, "column": 60}, "value": 4},
-          {"unit_name": "get_all_repos", "start": {"line": 29, "column": 1}, "end": {"line": 48, "column": 24}, "value": 15}
+          {"unit_name": "get_all_repos", "start": {"line": 28, "column": 1}, "end": {"line": 47, "column": 24}, "value": 15}
         ]
       },
       "src/custom_logging.py": {
