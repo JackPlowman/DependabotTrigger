@@ -6,6 +6,10 @@
 install:
     uv sync --all-extras
 
+# Install playwright browsers
+install-browsers:
+    uv run playwright install --with-deps
+
 # Run DependabotTrigger
 run:
     uv run python -m src
