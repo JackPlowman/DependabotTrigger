@@ -1,7 +1,7 @@
 {
   "version": "0.18.1",
-  "uuid": "c8591dd3-b686-44f3-867b-d7de1e075784",
-  "timestamp": "2025-05-02T19:11:56+00:00",
+  "uuid": "de419f71-0eec-4dd8-9db8-430f344dfcaa",
+  "timestamp": "2025-05-04T09:31:58+00:00",
   "root": "/github/workspace",
   "repository": {
     "owner": "JackPlowman",
@@ -12,8 +12,8 @@
     "totals": {
       "Python": {
         "files": 4,
-        "lines_of_code": 36,
-        "functions": 5,
+        "lines_of_code": 14,
+        "functions": 2,
         "hard_to_maintain": 0,
         "unmaintainable": 0
       }
@@ -23,7 +23,7 @@
         "entries": [
           "src/"
         ],
-        "profile": [36, 0, 0, 0]
+        "profile": [14, 0, 0, 0]
       },
       "src/": {
         "entries": [
@@ -32,7 +32,7 @@
           "custom_logging.py",
           "__init__.py"
         ],
-        "profile": [36, 0, 0, 0]
+        "profile": [14, 0, 0, 0]
       }
     },
     "files": {
@@ -45,15 +45,12 @@
         ]
       },
       "src/app.py": {
-        "checksum": "20d55423107e069cb058b552feec7b20",
+        "checksum": "ab39d61e7ca24d20189fc11934439bc6",
         "language": "Python",
-        "loc": 30,
-        "profile": [30, 0, 0, 0],
+        "loc": 8,
+        "profile": [8, 0, 0, 0],
         "measurements": [
-          {"unit_name": "app", "start": {"line": 8, "column": 1}, "end": {"line": 22, "column": 25}, "value": 11},
-          {"unit_name": "get_pull_requests", "start": {"line": 25, "column": 1}, "end": {"line": 43, "column": 17}, "value": 8},
-          {"unit_name": "comment_on_pull_request", "start": {"line": 46, "column": 1}, "end": {"line": 53, "column": 56}, "value": 4},
-          {"unit_name": "log_all_pull_requests", "start": {"line": 56, "column": 1}, "end": {"line": 67, "column": 6}, "value": 7}
+          {"unit_name": "app", "start": {"line": 8, "column": 1}, "end": {"line": 17, "column": 64}, "value": 8}
         ]
       },
       "src/custom_logging.py": {
