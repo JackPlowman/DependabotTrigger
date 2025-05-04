@@ -4,12 +4,14 @@ from structlog import get_logger, stdlib
 from github import Github
 from github.PaginatedList import PaginatedList
 from github.Repository import Repository
+from .custom_logging import set_up_custom_logging
 
 logger: stdlib.BoundLogger = get_logger()
 
 
 def app() -> None:
     """Main application function."""
+    set_up_custom_logging()
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         context = browser.new_context()
