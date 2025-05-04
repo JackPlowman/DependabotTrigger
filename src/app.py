@@ -1,4 +1,4 @@
-from playwright.sync_api import Page
+from playwright.sync_api import Page, sync_playwright
 from os import getenv
 from structlog import get_logger, stdlib
 from github import Github
@@ -10,14 +10,14 @@ logger: stdlib.BoundLogger = get_logger()
 
 def app() -> None:
     """Main application function."""
-    # with sync_playwright() as p:
-    #     browser = p.chromium.launch(headless=False)
-    #     context = browser.new_context()
-    #     page = context.new_page()
-    #     sign_into_github(page)
-    github = setup_github()
-    for repo in get_all_repos(github):
-        close_group_pull_requests(github, repo.full_name)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        context = browser.new_context()
+        page = context.new_page()
+        sign_into_github(page)
+        github = setup_github()
+        for repo in get_all_repos(github):
+            close_group_pull_requests(github, repo.full_name)
 
 
 def sign_into_github(page: Page) -> None:
