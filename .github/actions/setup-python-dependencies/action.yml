@@ -1,5 +1,5 @@
-name: "Setup Dependencies"
-description: "Installs dependencies for the project"
+name: "Setup Python Dependencies"
+description: "Installs Python dependencies"
 
 runs:
   using: "composite"
