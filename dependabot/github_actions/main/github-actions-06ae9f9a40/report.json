@@ -1,7 +1,7 @@
 {
   "version": "0.18.1",
-  "uuid": "093df4a1-6d22-45ee-84f1-2b70195b9dfd",
-  "timestamp": "2025-05-08T19:22:56+00:00",
+  "uuid": "a6e6cf70-1197-4dfb-b3d8-35e31a5c76fc",
+  "timestamp": "2025-05-08T21:33:28+00:00",
   "root": "/github/workspace",
   "repository": {
     "owner": "JackPlowman",
@@ -12,7 +12,7 @@
     "totals": {
       "Python": {
         "files": 4,
-        "lines_of_code": 80,
+        "lines_of_code": 83,
         "functions": 7,
         "hard_to_maintain": 0,
         "unmaintainable": 0
@@ -23,7 +23,7 @@
         "entries": [
           "src/"
         ],
-        "profile": [55, 25, 0, 0]
+        "profile": [58, 25, 0, 0]
       },
       "src/": {
         "entries": [
@@ -32,7 +32,7 @@
           "__main__.py",
           "custom_logging.py"
         ],
-        "profile": [55, 25, 0, 0]
+        "profile": [58, 25, 0, 0]
       }
     },
     "files": {
@@ -45,17 +45,17 @@
         ]
       },
       "src/app.py": {
-        "checksum": "e88195c5d180a98d30f3a1e09d11a19c",
+        "checksum": "a3f599dbc4e5ac0ef1e82342e203a90b",
         "language": "Python",
-        "loc": 74,
-        "profile": [49, 25, 0, 0],
+        "loc": 77,
+        "profile": [52, 25, 0, 0],
         "measurements": [
           {"unit_name": "app", "start": {"line": 12, "column": 1}, "end": {"line": 23, "column": 53}, "value": 12},
-          {"unit_name": "sign_into_github", "start": {"line": 26, "column": 1}, "end": {"line": 30, "column": 60}, "value": 4},
+          {"unit_name": "sign_into_github", "start": {"line": 26, "column": 1}, "end": {"line": 30, "column": 61}, "value": 4},
           {"unit_name": "setup_github", "start": {"line": 33, "column": 1}, "end": {"line": 43, "column": 18}, "value": 7},
-          {"unit_name": "get_all_repos", "start": {"line": 46, "column": 1}, "end": {"line": 61, "column": 24}, "value": 11},
-          {"unit_name": "close_group_pull_requests", "start": {"line": 64, "column": 1}, "end": {"line": 98, "column": 17}, "value": 25},
-          {"unit_name": "trigger_dependabot", "start": {"line": 101, "column": 1}, "end": {"line": 120, "column": 45}, "value": 15}
+          {"unit_name": "get_all_repos", "start": {"line": 46, "column": 1}, "end": {"line": 64, "column": 6}, "value": 14},
+          {"unit_name": "close_group_pull_requests", "start": {"line": 67, "column": 1}, "end": {"line": 101, "column": 17}, "value": 25},
+          {"unit_name": "trigger_dependabot", "start": {"line": 104, "column": 1}, "end": {"line": 123, "column": 45}, "value": 15}
         ]
       },
       "src/__main__.py": {
