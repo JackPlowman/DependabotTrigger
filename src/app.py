@@ -18,9 +18,15 @@ def app() -> None:
         page = context.new_page()
         sign_into_github(page)
         github = setup_github()
-        for repo in get_all_repos(github):
+        repos = get_all_repos(github)
+        for index, repo in enumerate(repos, start=1):
             close_group_pull_requests(github, repo.full_name)
             trigger_dependabot(page, repo.full_name)
+            logger.info(
+                "Scanned repository",
+                repository=repo.full_name,
+                percentage_complete=f"{int(index / len(repos) * 100)}%",
+            )
 
 
 def sign_into_github(page: Page) -> None:
@@ -76,7 +82,7 @@ def close_group_pull_requests(github_class: Github, repo_name: str) -> Paginated
 
     # Get all open pull requests
     pulls = repo.get_pulls(state="open")
-    logger.info(
+    logger.debug(
         "Retrieved open pull requests",
         repository=repo_name,
         pull_requests_count=pulls.totalCount,
@@ -93,7 +99,7 @@ def close_group_pull_requests(github_class: Github, repo_name: str) -> Paginated
         pull.create_issue_comment("This PR is being closed as it is a group PR.")
         pull.edit(state="closed")
 
-    logger.info(
+    logger.debug(
         "Closed group pull requests",
         repository=repo_name,
         closed_pull_requests_count=len(prs_to_close),
@@ -113,7 +119,7 @@ def trigger_dependabot(page: Page, repository_name: str) -> None:
         f"https://github.com{link.get_attribute('href')}"
         for link in page.query_selector_all("text=Recent update jobs")
     ]
-    logger.info(
+    logger.debug(
         "Retrieved Dependabot URLs",
         repository=repository_name,
         dependabot_urls=dependabot_urls,
