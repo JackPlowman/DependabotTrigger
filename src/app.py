@@ -43,7 +43,7 @@ def setup_github() -> Github:
     return github
 
 
-def get_all_repos(github: Github) ->list[Repository]:
+def get_all_repos(github: Github) -> list[Repository]:
     """Retrieve the list of public repositories.
 
     Returns:
