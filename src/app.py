@@ -43,11 +43,11 @@ def setup_github() -> Github:
     return github
 
 
-def get_all_repos(github: Github) -> PaginatedList[Repository]:
-    """Retrieve the list of repositories to analyse.
+def get_all_repos(github: Github) -> list[Repository]:
+    """Retrieve the list of public repositories.
 
     Returns:
-        PaginatedList[Repository]: The list of repositories.
+        list[Repository]: A list of repositories
     """
     # Authenticate to GitHub
     repositories = github.search_repositories(
@@ -58,7 +58,10 @@ def get_all_repos(github: Github) -> PaginatedList[Repository]:
         repositories_count=repositories.totalCount,
         repositories=[repository.full_name for repository in repositories],
     )
-    return repositories
+    return sorted(
+        repositories,
+        key=lambda repo: repo.full_name,
+    )
 
 
 def close_group_pull_requests(github_class: Github, repo_name: str) -> PaginatedList:
