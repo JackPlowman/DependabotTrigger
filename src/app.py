@@ -27,7 +27,7 @@ def sign_into_github(page: Page) -> None:
     """Sign into GitHub using Playwright."""
     page.goto("https://www.github.com/login")
     # Wait 30 seconds for user to enter credentials
-    page.wait_for_url("https://github.com/", timeout=30000)
+    page.wait_for_url("https://github.com/", timeout=120000)
 
 
 def setup_github() -> Github:
