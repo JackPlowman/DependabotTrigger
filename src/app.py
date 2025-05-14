@@ -66,7 +66,7 @@ def get_all_repos(github: Github) -> list[Repository]:
     )
     return sorted(
         repositories,
-        key=lambda repo: repo.full_name,
+        key=lambda repo: repo.full_name.lower(),
     )
 
 
