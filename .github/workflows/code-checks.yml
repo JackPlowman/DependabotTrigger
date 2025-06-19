@@ -15,7 +15,6 @@ permissions:
 env:
   FORCE_COLOR: 1
 
-
 jobs:
   check-code-quality:
     name: Check Code Quality
