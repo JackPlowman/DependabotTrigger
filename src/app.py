@@ -13,11 +13,11 @@ def app() -> None:
     """Main application function."""
     set_up_custom_logging()
     with sync_playwright() as p:
+        github = setup_github()
         browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
         sign_into_github(page)
-        github = setup_github()
         repos = get_all_repos(github)
         for index, repo in enumerate(repos, start=1):
             close_group_pull_requests(github, repo.full_name)
