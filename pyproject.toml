@@ -5,8 +5,8 @@ requires-python = "~=3.13.0"
 dependencies = ["structlog==25.4.0", "pygithub==2.6.1", "playwright==1.53.0"]
 
 [project.optional-dependencies]
-dev = ["ruff==0.12.1", "vulture==2.14", "ty==0.0.1a12"]
+dev = ["ruff==0.12.4", "vulture==2.14", "ty==0.0.1a15"]
 
 [tool.uv]
-required-version = "0.7.17"
+required-version = "~=0.8.0"
 package = false
