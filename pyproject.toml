@@ -10,3 +10,49 @@ dev = ["ruff==0.12.4", "vulture==2.14", "ty==0.0.1a15"]
 [tool.uv]
 required-version = "~=0.8.0"
 package = false
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+extend-select = ["E501"]
+select = ["ALL"]
+
+ignore = [
+  "COM812",  # Ignore due to conflict with Ruff formatter
+  "ISC001",  # Ignore due to conflict with Ruff formatter
+  "PLR2004", # Ignore magic value
+  "D104",    # Ignore missing docstring in public package
+  "D100",    # Ignore missing docstring in public module
+  "N999",    # Ignore invalid module name
+  "SIM112",  # Ignore Lowercase environment variables (used for GitHub actions)
+]
+
+fixable = ["ALL"]
+unfixable = []
+
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".hg",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+]
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+
+
