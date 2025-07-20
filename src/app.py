@@ -12,8 +12,8 @@ logger: stdlib.BoundLogger = get_logger()
 def app() -> None:
     """Main application function."""
     set_up_custom_logging()
+    github = setup_github()
     with sync_playwright() as p:
-        github = setup_github()
         browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
