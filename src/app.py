@@ -1,11 +1,13 @@
-from playwright.sync_api import Page, sync_playwright
+from datetime import UTC, datetime, timedelta
 from os import getenv
-from structlog import get_logger, stdlib
+
 from github import Github
 from github.PaginatedList import PaginatedList
 from github.Repository import Repository
+from playwright.sync_api import Page, sync_playwright
+from structlog import get_logger, stdlib
+
 from .custom_logging import set_up_custom_logging
-from datetime import datetime, timedelta, timezone
 
 logger: stdlib.BoundLogger = get_logger()
 STALE_PR_THRESHOLD_DAYS = 30
@@ -48,9 +50,9 @@ def setup_github() -> Github:
     """
     auth_token = getenv("GITHUB_TOKEN")
     if not auth_token:
-        raise ValueError("GITHUB_TOKEN environment variable not set.")
-    github = Github(auth_token)
-    return github
+        msg = "GITHUB_TOKEN environment variable not set."
+        raise ValueError(msg)
+    return Github(auth_token)
 
 
 def get_all_repos(github: Github) -> list[Repository]:
@@ -101,7 +103,7 @@ def close_group_pull_requests(
     """Closes group pull requests in the specified GitHub repository.
 
     Args:
-        github_class (Github): An authenticated Github instance.
+        pull_requests (PaginatedList): A list of open pull requests.
         repo_name (str): The name of the repository in the format "owner/repo".
     """
     prs_to_close = [pull for pull in pull_requests if "updates" in pull.title]
@@ -113,7 +115,8 @@ def close_group_pull_requests(
             pull_request_title=pull.title,
         )
         pull.create_issue_comment(
-            "This PR is being closed as it is a group PR. PR will be recreated by Dependabot."
+            "This PR is being closed as it is a group PR. "
+            "PR will be recreated by Dependabot."
         )
         pull.edit(state="closed")
 
@@ -134,9 +137,7 @@ def warn_on_stale_pull_requests(
         pull_requests (PaginatedList): A list of open pull requests.
         repo_name (str): The name of the repository in the format "owner/repo".
     """
-    thirty_days_ago = datetime.now(timezone.utc) - timedelta(
-        days=STALE_PR_THRESHOLD_DAYS
-    )
+    thirty_days_ago = datetime.now(UTC) - timedelta(days=STALE_PR_THRESHOLD_DAYS)
     stale_prs = [
         pull
         for pull in pull_requests
