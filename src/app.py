@@ -8,6 +8,7 @@ from .custom_logging import set_up_custom_logging
 from datetime import datetime, timedelta, timezone
 
 logger: stdlib.BoundLogger = get_logger()
+STALE_PR_THRESHOLD_DAYS = 30
 
 
 def app() -> None:
@@ -133,7 +134,9 @@ def warn_on_stale_pull_requests(
         pull_requests (PaginatedList): A list of open pull requests.
         repo_name (str): The name of the repository in the format "owner/repo".
     """
-    thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
+    thirty_days_ago = datetime.now(timezone.utc) - timedelta(
+        days=STALE_PR_THRESHOLD_DAYS
+    )
     stale_prs = [
         pull
         for pull in pull_requests
