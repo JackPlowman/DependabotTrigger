@@ -97,7 +97,7 @@ def close_group_pull_requests(
     pull_requests: PaginatedList,
     repo_name: str,
 ) -> None:
-    """Fetches all open pull requests from the specified GitHub repository.
+    """Closes group pull requests in the specified GitHub repository.
 
     Args:
         github_class (Github): An authenticated Github instance.
