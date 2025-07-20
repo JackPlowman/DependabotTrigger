@@ -112,7 +112,7 @@ def close_group_pull_requests(
             pull_request_title=pull.title,
         )
         pull.create_issue_comment(
-            "This PR is being closed as it is a group PR. PR will be recreated by Dependabot.s"
+            "This PR is being closed as it is a group PR. PR will be recreated by Dependabot."
         )
         pull.edit(state="closed")
 
