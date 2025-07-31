@@ -20,6 +20,8 @@ pre-commit:
       run: just zizmor-check
     Pinact Checks:
       run: just pinact-check
+    Actionlint Checks:
+      run: just actionlint-check
     Ruff Checks:
       run: just ruff-checks
     UV Lock Checks:
