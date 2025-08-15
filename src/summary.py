@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from os import getenv
 from pathlib import Path
 
 
@@ -26,15 +25,24 @@ class JobSummary:
     triggered_jobs: dict[str, dict[str, int]] = field(default_factory=dict)
     stale_prs: list[StalePR] = field(default_factory=list)
 
-    def record_triggered_job(self, repository: str, job_type: str) -> None:
-        """Record a triggered job for a given repository and job type.
+    def record_triggered_job(
+        self, repository: str, job_type: str | list[str] | tuple[str, ...]
+    ) -> None:
+        """Record one or more triggered jobs for a repository.
 
         Args:
             repository (str): Full repository name (e.g., "owner/repo").
-            job_type (str): Dependabot job type (e.g., "pip", "npm", or "unknown").
+            job_type (str | list[str] | tuple[str, ...]): One job type (e.g., "pip")
+                or multiple (e.g., ["github-actions", "gomod", "npm"]).
         """
         repo_map = self.triggered_jobs.setdefault(repository, {})
-        repo_map[job_type] = repo_map.get(job_type, 0) + 1
+        if isinstance(job_type, str):
+            types_list: list[str] = [job_type]
+        else:
+            # Accept list[str] or tuple[str, ...]
+            types_list = list(job_type)
+        for jt in types_list:
+            repo_map[jt] = repo_map.get(jt, 0) + 1
 
     def record_stale_pr(
         self,
@@ -64,15 +72,11 @@ class JobSummary:
         # Sort by repo then job type for stable output
         grand_total = 0
         for repo in sorted(self.triggered_jobs.keys(), key=str.lower):
-            repo_total = 0
             for job_type, count in sorted(
                 self.triggered_jobs[repo].items(), key=lambda kv: kv[0].lower()
             ):
                 lines.append(f"| {repo} | {job_type} | {count} |")
-                repo_total += count
                 grand_total += count
-            # Repo subtotal row
-            lines.append(f"| {repo} | Total | {repo_total} |")
         # Grand total row
         lines.append(f"| All repositories | Total | {grand_total} |")
         return "\n".join(lines)
@@ -141,17 +145,6 @@ class JobSummary:
         self.finished_at = self.finished_at or datetime.now(UTC)
         content = self.to_markdown() + "\n"
 
-        # Prefer GitHub Actions step summary file if available
-        gha_summary_path = getenv("GITHUB_STEP_SUMMARY")
-        if gha_summary_path:
-            path = Path(gha_summary_path)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            mode = "append" if path.exists() else "write"
-            with path.open("a", encoding="utf-8") as f:
-                f.write(content)
-            return (mode, path)
-
-        # Fallback to local file in CWD
         file_name = output_path or "dependabot_summary.md"
         path = Path(file_name)
         path.write_text(content, encoding="utf-8")
