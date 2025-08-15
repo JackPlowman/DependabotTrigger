@@ -138,9 +138,6 @@ class JobSummary:
 
         Returns:
             tuple[str, Path]: A tuple of write mode ("append" | "write") and file path.
-
-        Notes:
-            Prefers the GitHub Actions step summary if available.
         """
         self.finished_at = self.finished_at or datetime.now(UTC)
         content = self.to_markdown() + "\n"
