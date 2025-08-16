@@ -74,7 +74,7 @@ class JobSummary:
         for repo in sorted(self.triggered_jobs.keys(), key=str.lower):
             # Merge all job types/counts for a repo into a single row
             merged_job_types = ", ".join(
-                sorted(self.triggered_jobs[repo].items(), key=lambda kv: kv[0].lower())
+                sorted(self.triggered_jobs[repo].keys(), key=str.lower)
             )
             total_count = sum(self.triggered_jobs[repo].values())
             lines.append(f"| {repo} | {merged_job_types} | {total_count} |")
