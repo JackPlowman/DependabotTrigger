@@ -1,6 +1,5 @@
 from datetime import UTC, datetime, timedelta
 from os import getenv
-from urllib.parse import parse_qs, urlparse
 
 from github import Github
 from github.PaginatedList import PaginatedList
@@ -195,14 +194,21 @@ def trigger_dependabot(page: Page, repository_name: str, summary: JobSummary) ->
         for job_box in dependabot_jobs.query_selector_all(".Box.mb-3"):
             # Find the "Recent update jobs" link
             link = job_box.query_selector("text=Recent update jobs")
+            check_for_updates_link = (
+                f"https://github.com{link.get_attribute('href')}"
+                if link is not None
+                else None
+            )
             # Find the first SVG in the job_box (the job type icon)
             svg = job_box.query_selector("svg")
-            job_type = "unknown"
-            if svg is not None:
-                # Get the title from the SVG
-                job_type = svg.get_attribute("title") or "unknown"
-            check_for_updates_link = (
-                f"https://github.com{link.get_attribute('href')}" if link is not None else None
+            if svg is None:
+                dependabot_urls.append((check_for_updates_link, "error__svg_not_found"))
+                continue
+            title_element = svg.query_selector("title")
+            job_type = (
+                title_element.inner_html()
+                if title_element
+                else "error__title_element_not_found"
             )
             logger.debug(
                 "Found Dependabot job",
