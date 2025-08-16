@@ -72,11 +72,13 @@ class JobSummary:
         # Sort by repo then job type for stable output
         grand_total = 0
         for repo in sorted(self.triggered_jobs.keys(), key=str.lower):
-            for job_type, count in sorted(
-                self.triggered_jobs[repo].items(), key=lambda kv: kv[0].lower()
-            ):
-                lines.append(f"| {repo} | {job_type} | {count} |")
-                grand_total += count
+            # Merge all job types/counts for a repo into a single row
+            merged_job_types = ", ".join(
+                sorted(self.triggered_jobs[repo].keys(), key=str.lower)
+            )
+            total_count = sum(self.triggered_jobs[repo].values())
+            lines.append(f"| {repo} | {merged_job_types} | {total_count} |")
+            grand_total += total_count
         # Grand total row
         lines.append(f"| All repositories | Total | {grand_total} |")
         return "\n".join(lines)

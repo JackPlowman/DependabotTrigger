@@ -1,6 +1,5 @@
 from datetime import UTC, datetime, timedelta
 from os import getenv
-from urllib.parse import parse_qs, urlparse
 
 from github import Github
 from github.PaginatedList import PaginatedList
@@ -45,7 +44,7 @@ def app() -> None:
 def sign_into_github(page: Page) -> None:
     """Sign into GitHub using Playwright."""
     page.goto("https://www.github.com/login")
-    # Wait 30 seconds for user to enter credentials
+    # Wait 120 seconds for user to enter credentials
     page.wait_for_url("https://github.com/", timeout=120000)
 
 
@@ -70,7 +69,7 @@ def get_all_repos(github: Github) -> list[Repository]:
     """
     # Authenticate to GitHub
     repositories = github.search_repositories(
-        query="user:JackPlowman archived:false is:public",
+        query="user:JackPlowman archived:false is:public DependabotTrigger",
     )
     logger.info(
         "Retrieved repositories to analyse",
@@ -189,17 +188,35 @@ def trigger_dependabot(page: Page, repository_name: str, summary: JobSummary) ->
         summary (JobSummary): Collector for job and warning summary output.
     """
     page.goto(f"https://github.com/{repository_name}/network/updates")
-    # Collect job URLs and infer job types from the querystring (package-manager)
     dependabot_urls: list[tuple[str, str]] = []
-    for link in page.query_selector_all("text=Recent update jobs"):
-        href = link.get_attribute("href")
-        if not href:
-            continue
-        full_url = f"https://github.com{href}" if href.startswith("/") else href
-        parsed = urlparse(full_url)
-        qs = parse_qs(parsed.query)
-        job_type = qs.get("package-manager", ["unknown"])[0]
-        dependabot_urls.append((full_url, job_type))
+    dependabot_jobs = page.query_selector("id=dependabot-updates")
+    if dependabot_jobs is not None:
+        for job_box in dependabot_jobs.query_selector_all(".Box.mb-3"):
+            # Find the "Recent update jobs" link
+            link = job_box.query_selector("text=Recent update jobs")
+            check_for_updates_link = (
+                f"https://github.com{link.get_attribute('href')}"
+                if link is not None
+                else None
+            )
+            # Find the first SVG in the job_box (the job type icon)
+            svg = job_box.query_selector("svg")
+            if svg is None:
+                dependabot_urls.append((check_for_updates_link, "error__svg_not_found"))
+                continue
+            title_element = svg.query_selector("title")
+            job_type = (
+                title_element.inner_html()
+                if title_element
+                else "error__title_element_not_found"
+            )
+            logger.debug(
+                "Found Dependabot job",
+                repository=repository_name,
+                job_type=job_type,
+                check_for_updates_link=check_for_updates_link,
+            )
+            dependabot_urls.append((check_for_updates_link, job_type))
     logger.debug(
         "Retrieved Dependabot URLs",
         repository=repository_name,
