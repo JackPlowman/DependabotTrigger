@@ -37,7 +37,6 @@ Development Dependencies:
 - [gitleaks](https://github.com/gitleaks/gitleaks?tab=readme-ov-file#installing) - for finding secrets in the codebase
 - [trufflehog](https://github.com/trufflesecurity/trufflehog?tab=readme-ov-file#floppy_disk-installation) - for finding secrets in the codebase
 
-
 1. Install the python dependencies:
 
 ```bash
@@ -63,8 +62,6 @@ export GITHUB_TOKEN=<your_github_token>
 ```bash
 just run
 ```
-
-
 
 ## Contributing
 
