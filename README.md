@@ -75,12 +75,8 @@ When the Chromium window opens, complete GitHub sign-in (including 2FA) within 1
 
 ## Contributing
 
-Contributions welcome. See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
-
-## Security
-
-Please see [docs/SECURITY.md](docs/SECURITY.md) for reporting guidelines.
+We welcome contributions to the project. Please read the [Contributing Guidelines](docs/CONTRIBUTING.md) for more information.
 
 ## License
 
-MIT — see [LICENCE](LICENCE).
+This project is licensed under the MIT License. See the [LICENCE](LICENCE) file for details.
