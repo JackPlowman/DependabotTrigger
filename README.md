@@ -28,21 +28,21 @@ For development (optional):
 
 ## Quick start
 
-1) Clone the repo
+1. Clone the repository
 
 ```bash
 git clone https://github.com/JackPlowman/DependabotTrigger.git
 cd DependabotTrigger
 ```
 
-2) Install Python deps and Playwright browsers
+2. Install Python deps and Playwright browsers
 
 ```bash
 just install
 just install-browsers
 ```
 
-3) Set a GitHub token with permission to read repos and close PRs
+3. Set a GitHub token with permission to read repositories and close PRs
 
 - PowerShell (Windows):
 
@@ -56,12 +56,7 @@ $env:GITHUB_TOKEN = "<your_token>"
 export GITHUB_TOKEN="<your_token>"
 ```
 
-Recommended scopes:
-
-- Classic token: `public_repo` (for public repos) or `repo` (for private too)
-- Fine-grained token: grant Read/Write on Pull requests for the selected repositories
-
-4) Run it
+4. Run it
 
 ```bash
 just run
