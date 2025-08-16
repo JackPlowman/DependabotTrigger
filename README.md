@@ -1,72 +1,86 @@
 # DependabotTrigger
 
-DependabotTrigger is a Python script that automates the process of triggering Dependabot version update jobs for GitHub repositories. It uses Playwright to interact with the GitHub web interface and trigger updates for all repositories for a give user.
+Automate triggering Dependabot “Check for updates” jobs across repositories. This tool uses Playwright to open GitHub in a real browser session and PyGitHub (pygithub) to fetch/close PRs where needed.
 
-## Table of Contents
+## What it does
 
-- [DependabotTrigger](#dependabottrigger)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [License](#license)
+- Signs into GitHub in a browser window you control (you get 120 seconds to complete login/2FA).
+- Lists public repositories for a specific user and visits each repo’s Dependabot page.
+- Closes Dependabot “group” PRs (titles containing “updates”).
+- Warns on stale Dependabot PRs older than 30 days.
+- Creates a Markdown report summarising the actions taken.
 
-## Installation
+## Requirements
 
-1. Clone the repository:
+- Python 3.13
+- [uv](https://docs.astral.sh/uv/#installation)
+- [just](https://just.systems/man/en/packages.html)
+
+For development (optional):
+
+- [lefthook](https://lefthook.dev/installation/index.html)
+- [zizmor](https://docs.zizmor.sh/installation/)
+- [editorconfig-checker](https://editorconfig-checker.github.io/)
+- [prettier](https://prettier.io/docs/install)
+- [actionlint](https://github.com/rhysd/actionlint/blob/main/docs/install.md)
+- [gitleaks](https://github.com/gitleaks/gitleaks?tab=readme-ov-file#installing)
+- [trufflehog](https://github.com/trufflesecurity/trufflehog?tab=readme-ov-file#floppy_disk-installation)
+
+## Quick start
+
+1) Clone the repo
 
 ```bash
 git clone https://github.com/JackPlowman/DependabotTrigger.git
 cd DependabotTrigger
 ```
 
-2. To use DependabotTrigger you need to have some prerequisites installed. Install the following tools:
-
-Required:
-
-- [Just](https://just.systems/man/en/packages.html)
-- [uv](https://docs.astral.sh/uv/#installation)
-
-Development Dependencies:
-
-- [Lefthook](https://lefthook.dev/installation/index.html) - for managing Git hooks
-- [Zizmor](https://docs.zizmor.sh/installation/) - for managing project dependencies
-- [Editorconfig-checker](https://editorconfig-checker.github.io/) - for maintaining consistent coding styles
-- [prettier](https://prettier.io/docs/install) - for code formatting
-- [actionlint](https://github.com/rhysd/actionlint/blob/main/docs/install.md) - for GitHub Actions linting
-- [gitleaks](https://github.com/gitleaks/gitleaks?tab=readme-ov-file#installing) - for finding secrets in the codebase
-- [trufflehog](https://github.com/trufflesecurity/trufflehog?tab=readme-ov-file#floppy_disk-installation) - for finding secrets in the codebase
-
-3. Install the python dependencies:
+2) Install Python deps and Playwright browsers
 
 ```bash
 just install
-```
-
-4. Install playwright browsers:
-
-```bash
 just install-browsers
 ```
 
-## Usage
+3) Set a GitHub token with permission to read repos and close PRs
 
-1. Export the following environment variables:
+- PowerShell (Windows):
 
-```bash
-export GITHUB_TOKEN=<your_github_token>
+```powershell
+$env:GITHUB_TOKEN = "<your_token>"
 ```
 
-2. Run the script:
+- Bash (macOS/Linux):
+
+```bash
+export GITHUB_TOKEN="<your_token>"
+```
+
+Recommended scopes:
+
+- Classic token: `public_repo` (for public repos) or `repo` (for private too)
+- Fine-grained token: grant Read/Write on Pull requests for the selected repositories
+
+4) Run it
 
 ```bash
 just run
 ```
 
+When the Chromium window opens, complete GitHub sign-in (including 2FA) within 120 seconds. The tool will then iterate repositories and trigger Dependabot jobs.
+
+## Output
+
+- A Markdown report is written to `dependabot_summary.md` in the project root after each run.
+
 ## Contributing
 
-We welcome contributions to the project. Please read the [Contributing Guidelines](docs/CONTRIBUTING.md) for more information.
+Contributions welcome. See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
+
+## Security
+
+Please see [docs/SECURITY.md](docs/SECURITY.md) for reporting guidelines.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENCE](LICENCE) file for details.
+MIT — see [LICENCE](LICENCE).
