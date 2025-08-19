@@ -69,7 +69,7 @@ def get_all_repos(github: Github) -> list[Repository]:
     """
     # Authenticate to GitHub
     repositories = github.search_repositories(
-        query="user:JackPlowman archived:false is:public DependabotTrigger",
+        query="user:JackPlowman archived:false is:public",
     )
     logger.info(
         "Retrieved repositories to analyse",
