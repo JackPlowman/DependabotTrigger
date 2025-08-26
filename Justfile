@@ -14,6 +14,9 @@ install-browsers:
 run:
     uv run python -m src
 
+run-update-only:
+    UPDATE_GROUP_PULL_REQUESTS=true uv run python -m src
+
 # ------------------------------------------------------------------------------
 # Ruff - Python Linting and Formatting
 # ------------------------------------------------------------------------------

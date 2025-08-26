@@ -12,6 +12,7 @@ from .summary import JobSummary
 
 logger: stdlib.BoundLogger = get_logger()
 STALE_PR_THRESHOLD_DAYS = 30
+UPDATE_GROUP_PULL_REQUESTS = getenv("UPDATE_GROUP_PULL_REQUESTS") in ["true", "True"]
 
 
 def app() -> None:
@@ -27,7 +28,8 @@ def app() -> None:
         repos = get_all_repos(github)
         for index, repo in enumerate(repos, start=1):
             pull_requests = get_pull_requests(github, repo.full_name)
-            close_group_pull_requests(pull_requests, repo.full_name)
+            if not UPDATE_GROUP_PULL_REQUESTS:
+                close_group_pull_requests(pull_requests, repo.full_name)
             warn_on_stale_pull_requests(pull_requests, repo.full_name, summary)
             trigger_dependabot(page, repo.full_name, summary)
             logger.info(
