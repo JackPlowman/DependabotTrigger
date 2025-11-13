@@ -23,7 +23,7 @@ jobs:
       actions: write
       pull-requests: write
       security-events: write
-    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@7266b1a2cebc5ac940b8a767ff040c846275fcf0 # v2025.10.15.01
+    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@9c7c7f2e0a2fcd16f271edf113374bb241ecd389 # v2025.11.05.02
     secrets:
       workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         language: [actions, python]
-    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@7266b1a2cebc5ac940b8a767ff040c846275fcf0 # v2025.10.15.01
+    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@9c7c7f2e0a2fcd16f271edf113374bb241ecd389 # v2025.11.05.02
     with:
       language: ${{ matrix.language }}
 
@@ -60,7 +60,7 @@ jobs:
           RUFF_OUTPUT_FILE: "ruff-results.sarif"
         continue-on-error: true
       - name: Upload Ruff analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@16140ae1a102900babc80a33c44059580f687047 # v4.30.9
+        uses: github/codeql-action/upload-sarif@0499de31b99561a6d14a36a5f662c2a54f91beee # v4.31.2
         with:
           sarif_file: ruff-results.sarif
           wait-for-processing: true
