@@ -7,8 +7,8 @@ from github.Repository import Repository
 from playwright.sync_api import Page, sync_playwright
 from structlog import get_logger, stdlib
 
-from .custom_logging import set_up_custom_logging
-from .summary import JobSummary
+from src.custom_logging import set_up_custom_logging
+from src.summary import JobSummary
 
 logger: stdlib.BoundLogger = get_logger()
 STALE_PR_THRESHOLD_DAYS = 30
@@ -203,8 +203,7 @@ def trigger_dependabot(page: Page, repository_name: str, summary: JobSummary) ->
             )
             # Find the first SVG in the job_box (the job type icon)
             svg = job_box.query_selector("svg")
-            if svg is None:
-                dependabot_urls.append((check_for_updates_link, "error__svg_not_found"))
+            if svg is None or check_for_updates_link is None:
                 continue
             title_element = svg.query_selector("title")
             job_type = (
@@ -218,7 +217,8 @@ def trigger_dependabot(page: Page, repository_name: str, summary: JobSummary) ->
                 job_type=job_type,
                 check_for_updates_link=check_for_updates_link,
             )
-            dependabot_urls.append((check_for_updates_link, job_type))
+            if check_for_updates_link is not None:
+                dependabot_urls.append((check_for_updates_link, job_type))
     logger.debug(
         "Retrieved Dependabot URLs",
         repository=repository_name,
