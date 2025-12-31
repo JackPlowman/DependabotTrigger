@@ -99,12 +99,12 @@ gitleaks-detect:
     gitleaks detect --source .
 
 # ------------------------------------------------------------------------------
-# Lefthook
+# Prek
 # ------------------------------------------------------------------------------
 
-# Validate lefthook config
-lefthook-validate:
-    lefthook validate
+# Run prek checking on all pre-commit config files
+prek-check:
+    find . -name "pre-commit-config.*" -exec prek validate-config -c {} \;
 
 # ------------------------------------------------------------------------------
 # Zizmor
@@ -150,6 +150,6 @@ editorconfig-check:
 # Git Hooks
 # ------------------------------------------------------------------------------
 
-# Install pre commit hook to run on all commits
+# Install git hooks using prek
 install-git-hooks:
-    lefthook install -f
+    prek install
