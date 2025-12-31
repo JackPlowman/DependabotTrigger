@@ -18,7 +18,7 @@ Automate triggering Dependabot “Check for updates” jobs across repositories.
 
 For development (optional):
 
-- [lefthook](https://lefthook.dev/installation/index.html)
+- [prek](https://prek.j178.dev/)
 - [zizmor](https://docs.zizmor.sh/installation/)
 - [editorconfig-checker](https://editorconfig-checker.github.io/)
 - [prettier](https://prettier.io/docs/install)
