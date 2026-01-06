@@ -31,7 +31,6 @@ ignore = [
 ]
 
 fixable = ["ALL"]
-unfixable = []
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
