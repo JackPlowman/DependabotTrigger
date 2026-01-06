@@ -19,17 +19,6 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  common-code-checks:
-    name: Common Code Checks
-    permissions:
-      contents: read
-      actions: read # Allow the workflow to read actions metadata
-      pull-requests: write # Allow the workflow to create and modify pull request comments
-      security-events: write # Allow the workflow to upload analysis results
-    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@bef975f562bde20717a9cf9b171beff6386e4973 # v2026.01.06.02
-    secrets:
-      workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
-
   codeql-checks:
     name: CodeQL Analysis
     permissions:
@@ -41,6 +30,31 @@ jobs:
     uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@bef975f562bde20717a9cf9b171beff6386e4973 # v2026.01.06.02
     with:
       language: ${{ matrix.language }}
+
+  common-code-checks:
+    name: Common Code Checks
+    permissions:
+      contents: read
+      actions: read # Allow the workflow to read actions metadata
+      pull-requests: write # Allow the workflow to create and modify pull request comments
+      security-events: write # Allow the workflow to upload analysis results
+    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@bef975f562bde20717a9cf9b171beff6386e4973 # v2026.01.06.02
+    secrets:
+      workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  run-python-dead-code-checks:
+    name: Run Python Dead Code Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-python-dependencies
+      - name: Check Python Code for Dead Code (Vulture)
+        run: just vulture
 
   run-python-lint-checks:
     name: Run Python Lint Checks
@@ -87,34 +101,6 @@ jobs:
         env:
           RUFF_OUTPUT_FORMAT: "github"
 
-  run-python-type-checks:
-    name: Run Python Type Checks
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Set up dependencies
-        uses: ./.github/actions/setup-python-dependencies
-      - name: Check Python Code Types (ty) Checks
-        run: just ty-check
-
-  run-python-dead-code-checks:
-    name: Run Python Dead Code Checks
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Set up dependencies
-        uses: ./.github/actions/setup-python-dependencies
-      - name: Check Python Code for Dead Code (Vulture)
-        run: just vulture
-
   run-python-lockfile-check:
     name: Run Python Lockfile Check
     runs-on: ubuntu-latest
@@ -128,3 +114,17 @@ jobs:
         uses: ./.github/actions/setup-python-dependencies
       - name: Check UV Lockfile
         run: just uv-lock-check
+
+  run-python-type-checks:
+    name: Run Python Type Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up dependencies
+        uses: ./.github/actions/setup-python-dependencies
+      - name: Check Python Code Types (ty) Checks
+        run: just ty-check
