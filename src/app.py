@@ -1,14 +1,17 @@
 from datetime import UTC, datetime, timedelta
 from os import getenv
+from typing import TYPE_CHECKING
 
 from github import Github
-from github.PaginatedList import PaginatedList
-from github.Repository import Repository
 from playwright.sync_api import Page, sync_playwright
 from structlog import get_logger, stdlib
 
 from src.custom_logging import set_up_custom_logging
 from src.summary import JobSummary
+
+if TYPE_CHECKING:
+    from github.PaginatedList import PaginatedList
+    from github.Repository import Repository
 
 logger: stdlib.BoundLogger = get_logger()
 STALE_PR_THRESHOLD_DAYS = 30
