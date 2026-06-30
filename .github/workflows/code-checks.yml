@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         language: [actions, python]
-    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@2e96e0147d1784c01c3f75171441c8a0bfacac84 # v2026.03.11.01
+    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@770e0f8d83d2cf12795ae93c33ff48b731c41201 # v2026.06.30.01
     with:
       language: ${{ matrix.language }}
 
@@ -38,7 +38,7 @@ jobs:
       actions: read # Allow the workflow to read actions metadata
       pull-requests: write # Allow the workflow to create and modify pull request comments
       security-events: write # Allow the workflow to upload analysis results
-    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@2e96e0147d1784c01c3f75171441c8a0bfacac84 # v2026.03.11.01
+    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@770e0f8d83d2cf12795ae93c33ff48b731c41201 # v2026.06.30.01
     secrets:
       workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -63,7 +63,7 @@ jobs:
       security-events: write # Allow the workflow to upload analysis results
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -76,7 +76,7 @@ jobs:
           RUFF_OUTPUT_FILE: "ruff-results.sarif"
         continue-on-error: true
       - name: Upload Ruff analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@0d579ffd059c29b07949a3cce3983f0780820c98 # v4.32.6
+        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
         with:
           sarif_file: ruff-results.sarif
           wait-for-processing: true
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           persist-credentials: false
