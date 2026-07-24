@@ -39,7 +39,7 @@ repos:
         name: EditorConfig Checker
         description: Validates files against .editorconfig rules
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: e3eebf65325ccc992422292cb7a4baee967cf815 # frozen: v1.26.1
+    rev: 067260dc5fe6ea86b7551bfd6f8b3ba4e6c93129 # frozen: v1.28.0
     hooks:
       - id: zizmor
         name: Zizmor
@@ -52,7 +52,7 @@ repos:
         language: node
         entry: prettier
         additional_dependencies:
-          - prettier@3.9.4
+          - prettier@3.9.6
         args: ["--check"]
         files: "(?i)(\\.(md|markdown|ya?ml|json)$|^(README|LICENSE|CONTRIBUTING|CODE_OF_CONDUCT|SECURITY|SUPPORT)(\\.md)?$)"
       - id: justfile-format-check
@@ -60,7 +60,7 @@ repos:
         language: python
         entry: just
         additional_dependencies:
-          - rust-just==1.55.0
+          - rust-just==1.57.0
         args: ["format-check"]
         files: "(?i)(^justfile$|\\.just$)"
         pass_filenames: false
