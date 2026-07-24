@@ -25,6 +25,7 @@ ignore = [
   "D100",    # Ignore missing docstring in public module
   "N999",    # Ignore invalid module name
   "SIM112",  # Ignore Lowercase environment variables (used for GitHub actions)
+  "CPY001",  # Ignore missing copyright notices
 ]
 
 fixable = ["ALL"]
