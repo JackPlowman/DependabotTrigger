@@ -12,8 +12,8 @@ Automate triggering Dependabot “Check for updates” jobs across repositories.
 
 ## Requirements
 
-- Python 3.13
-- [uv](https://docs.astral.sh/uv/#installation)
+- Python 3.15
+- [uv](https://docs.astral.sh/uv/#installation) 0.13.x
 - [just](https://just.systems/man/en/packages.html)
 
 For development (optional):
