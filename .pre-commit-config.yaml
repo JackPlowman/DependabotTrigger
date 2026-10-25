@@ -1,6 +1,6 @@
 # Pre-commit configuration for use with `prek` (https://github.com/j178/prek)
 
-minimum_prek_version: "0.4.0"
+minimum_prek_version: "0.5.0"
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -25,7 +25,7 @@ repos:
       - id: gitleaks
         name: Gitleaks - Secret Detection
         description: Scan for secrets using Gitleaks
-        language_version: "go1.25"
+        language_version: "go1.27.3"
   - repo: https://github.com/rhysd/actionlint
     rev: 914e7df21a07ef503a81201c76d2b11c789d3fca # frozen: v1.7.12
     hooks:
@@ -33,13 +33,13 @@ repos:
         name: Actionlint
         description: Linter for GitHub Actions workflow files
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: bebfac867564fbd992e5b45379b4b0568d5cb85b # frozen: 3.6.1
+    rev: e8b4e28241a9ae8296ba6e4a491b5da4eda73283 # frozen: 3.11.1
     hooks:
       - id: editorconfig-checker
         name: EditorConfig Checker
         description: Validates files against .editorconfig rules
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: 067260dc5fe6ea86b7551bfd6f8b3ba4e6c93129 # frozen: v1.28.0
+    rev: c92afdf2c6ca336aaa8f39e2bd8d48f62dbd8e1f # frozen: v1.31.1
     hooks:
       - id: zizmor
         name: Zizmor
@@ -52,7 +52,7 @@ repos:
         language: node
         entry: prettier
         additional_dependencies:
-          - prettier@3.9.6
+          - prettier@3.9.10
         args: ["--check"]
         files: "(?i)(\\.(md|markdown|ya?ml|json)$|^(README|LICENSE|CONTRIBUTING|CODE_OF_CONDUCT|SECURITY|SUPPORT)(\\.md)?$)"
       - id: justfile-format-check
@@ -60,7 +60,7 @@ repos:
         language: python
         entry: just
         additional_dependencies:
-          - rust-just==1.57.0
+          - rust-just==1.59.0
         args: ["format-check"]
         files: "(?i)(^justfile$|\\.just$)"
         pass_filenames: false
@@ -69,8 +69,8 @@ repos:
         language: golang
         entry: pinact
         additional_dependencies:
-          - github.com/suzuki-shunsuke/pinact/v4/cmd/pinact@v4.1.0
+          - github.com/suzuki-shunsuke/pinact/v5/cmd/pinact@v5.0.1
         args: ["run", "--verify", "--check"]
         files: "^\\.github/(workflows|actions)/.*\\.ya?ml$|(^|/)action\\.ya?ml$"
         pass_filenames: false
-        language_version: "go1.26.4"
+        language_version: "go1.27.3"
